@@ -58,11 +58,15 @@ function App() {
     );
   };
 
+  const onDelete = (targetID) => {
+    // 인수 : todos 배열에서 targetID와 일치하는 id를 갖는 요소만 삭제한 새로운 배열
+    setTodos(todos.filter((todo) => todo.id !== targetID));
+  };
   return (
     <div className="App">
       <Header />
       <Editor onCreate={onCreate} />
-      <List todos={todos} onUpdate={onUpdate} />
+      <List todos={todos} onUpdate={onUpdate} onDelete={onDelete} />
     </div>
   );
 }
