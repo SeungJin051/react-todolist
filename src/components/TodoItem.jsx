@@ -25,15 +25,17 @@ function TodoItem({ id, isDone, content, date, onUpdate, onDelete }) {
 }
 
 // 고차 컴포넌트 (HOC)
-export default memo(TodoItem, (prevProps, nextProps) => {
-  // 반환값에 따라 프롭스가 빠귀었는지 판단
-  // T -> 프롭스가 바뀌지 않음 -> 리렌더 X
-  // F -> 프롭스가 바뀜 -> 리렌더 O
-  // id, isDone, content, date
-  if (prevProps.id !== nextProps.id) return false;
-  if (prevProps.isDone !== nextProps.isDone) return false;
-  if (prevProps.content !== nextProps.content) return false;
-  if (prevProps.date !== nextProps.date) return false;
+// export default memo(TodoItem, (prevProps, nextProps) => {
+//   // 반환값에 따라 프롭스가 빠귀었는지 판단
+//   // T -> 프롭스가 바뀌지 않음 -> 리렌더 X
+//   // F -> 프롭스가 바뀜 -> 리렌더 O
+//   // id, isDone, content, date
+//   if (prevProps.id !== nextProps.id) return false;
+//   if (prevProps.isDone !== nextProps.isDone) return false;
+//   if (prevProps.content !== nextProps.content) return false;
+//   if (prevProps.date !== nextProps.date) return false;
 
-  return true;
-});
+//   return true;
+// });
+
+export default memo(TodoItem);
