@@ -53,7 +53,6 @@ function App() {
         id: idRef.current++,
         isDone: false,
         content,
-        content,
         date: new Date().getTime(),
       },
     });
