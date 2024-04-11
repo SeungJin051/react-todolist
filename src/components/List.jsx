@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useState } from "react";
 import "./List.css";
 import TodoItem from "./TodoItem";
@@ -21,9 +22,42 @@ export default function List({ todos, onUpdate, onDelete }) {
 
   const fillteredTodos = getFilteredData();
 
+  // 상태를 분석해서 수치로 제공하는 함수 (useMemo 전 로직)
+  //   const getAnalyzedData = () => {
+  //     console.log("getAnalyzedData 호출");
+  //     // 현재 투두의 갯수
+  //     const totalCount = todos.length;
+  //     // 완료된 투두의 갯수
+  //     const doneCount = todos.filter((todo) => todo.isDone).length;
+  //     // 완료되지 않은 투두의 갯수
+  //     const notDoneCount = totalCount - doneCount;
+
+  //     return { totalCount, doneCount, notDoneCount };
+  //   };
+
+  // 1인수 콜백 함수, 2인수 의존성 배열 | 의존성 배열의 값이 변경되었을 때 함수 실행
+  const { totalCount, doneCount, notDoneCount } = useMemo(() => {
+    console.log("getAnalyzedData 호출");
+    // 현재 투두의 갯수
+    const totalCount = todos.length;
+    // 완료된 투두의 갯수
+    const doneCount = todos.filter((todo) => todo.isDone).length;
+    // 완료되지 않은 투두의 갯수
+    const notDoneCount = totalCount - doneCount;
+
+    return { totalCount, doneCount, notDoneCount };
+  }, [todos]);
+
+  //   const { totalCount, doneCount, notDoneCount } = getAnalyzedData();
+
   return (
     <div className="List">
       <h4>Todo List 🔥</h4>
+      <div>
+        <div>total : {totalCount}</div>
+        <div>done : {doneCount}</div>
+        <div>notDone : {notDoneCount}</div>
+      </div>
       <input
         placeholder="검색어를 입력하세요"
         value={search}
