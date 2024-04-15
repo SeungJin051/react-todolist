@@ -1,8 +1,13 @@
 import { useRef } from "react";
+import { useContext } from "react";
 import { useState } from "react";
 import "./Editor.css";
+import { TodoContext } from "../App";
 
-export default function Editor({ onCreate }) {
+export default function Editor() {
+  // onCreate값을 구조분해 할당으로 받기
+  const { onCreate } = useContext(TodoContext);
+
   const [content, setContent] = useState("");
   const contentRef = useRef();
 

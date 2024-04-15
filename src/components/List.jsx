@@ -1,9 +1,14 @@
+import { useContext } from "react";
 import { useMemo } from "react";
 import { useState } from "react";
 import "./List.css";
 import TodoItem from "./TodoItem";
+import { TodoContext } from "../App";
 
-export default function List({ todos, onUpdate, onDelete }) {
+export default function List() {
+  // onCreate값을 구조분해 할당으로 받기
+  const { todos } = useContext(TodoContext);
+
   const [search, setSearch] = useState("");
 
   const onChangeSearch = (e) => {
@@ -19,7 +24,6 @@ export default function List({ todos, onUpdate, onDelete }) {
       return todo.content.includes(search); // 명시적으로 true 또는 false를 반환합니다.
     });
   };
-
   const fillteredTodos = getFilteredData();
 
   // 상태를 분석해서 수치로 제공하는 함수 (useMemo 전 로직)
@@ -69,8 +73,8 @@ export default function List({ todos, onUpdate, onDelete }) {
             <TodoItem
               key={todo.id}
               {...todo}
-              onUpdate={onUpdate}
-              onDelete={onDelete}
+              //   onUpdate={onUpdate}
+              //   onDelete={onDelete}
             />
           );
         })}
