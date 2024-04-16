@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { createContext } from "react";
 import { useReducer } from "react";
+import { useMemo } from "react";
 import { useRef } from "react";
 import "./App.css";
 import Editor from "./components/Editor";
@@ -43,9 +44,9 @@ function reducer(state, action) {
       return state;
   }
 }
-
 // 보통 Context는 외부에 선언 / 데이터를 하위의 컴포넌트에게 공급 / export로 내보내기
-export const TodoContext = createContext();
+export const TodoStateContext = createContext();
+export const TodoDispatcheContext = createContext();
 
 function App() {
   const [todos, dispatch] = useReducer(reducer, mockData);
@@ -77,20 +78,19 @@ function App() {
     });
   }, []);
 
+  const memoDispatch = useMemo(() => {
+    return { onCreate, onUpdate, onDelete };
+  }, []);
+
   return (
     <div className="App">
       <Header />
-      <TodoContext.Provider
-        value={{
-          todos,
-          onCreate,
-          onUpdate,
-          onDelete,
-        }}
-      >
-        <Editor />
-        <List />
-      </TodoContext.Provider>
+      <TodoStateContext.Provider value={todos}>
+        <TodoDispatcheContext.Provider value={memoDispatch}>
+          <Editor />
+          <List />
+        </TodoDispatcheContext.Provider>
+      </TodoStateContext.Provider>
     </div>
   );
 }

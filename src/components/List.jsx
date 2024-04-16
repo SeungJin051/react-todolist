@@ -3,11 +3,11 @@ import { useMemo } from "react";
 import { useState } from "react";
 import "./List.css";
 import TodoItem from "./TodoItem";
-import { TodoContext } from "../App";
+import { TodoStateContext } from "../App";
 
 export default function List() {
   // onCreate값을 구조분해 할당으로 받기
-  const { todos } = useContext(TodoContext);
+  const todos = useContext(TodoStateContext);
 
   const [search, setSearch] = useState("");
 
